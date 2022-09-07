@@ -11,13 +11,19 @@
     <p>Please use the register form</p>
     <form>
         <input type="text" name="username" id="username" placeholder="Enter username...">
+        <p class="error hidden" id="usernameError">username must be between 4 and 64 characters!</p>
         <input type="password" name="password1" id="password1" placeholder="Enter password...">
+        <p class="error hidden" id="passwordError">password must be between 8 and 64 characters!</p>
         <input type="password" name="password2" id="password2" placeholder="Confirm password...">
+        <p class="error hidden" id="matchError">passwords are not equal!</p>
         <input type="email" name="email" id="email" placeholder="Enter e-mail...">
-        <input type="date" name="date" id="date">
-        <button id="register">REGISTER</button>
+        <p class="error hidden" id="emailError">enter valid email address!</p>
+        <input type="text" placeholder="Date of birth" onfocus="(this.type='date')" name="date" id="date">
+        <button type="submit" id="register">REGISTER</button>
     </form>
-    <h2>User List</h2>
-    <div id="users">Empty</div>
+    <h2>Users List</h2>
+    <div id="users">
+        <span id="empty">Empty</span>
+    </div>
 </body>
 </html>

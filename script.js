@@ -6,6 +6,16 @@ const date = document.getElementById("date")
 const register = document.getElementById("register")
 const users = document.getElementById("users")
 
+const usernameError = document.getElementById('usernameError')
+const passwordError = document.getElementById('passwordError')
+const matchError = document.getElementById('matchError')
+const emailError = document.getElementById('emailError')
+
+const empty = document.getElementById("empty")
+
+let error = false
+
+
 let userInfo = {
     username: "",
     password1: "",
@@ -38,9 +48,47 @@ date.addEventListener("input", (e) => {
 
 register.addEventListener("click", (e) => {
     e.preventDefault()
-    console.log(userInfo)
-    userList.push(userInfo)
-    console.log(userList)
-    users.textContent = `${userInfo.username} - ${userInfo.email} - ${userInfo.date}`
-})
+    if (userInfo.username.length < 4 || userInfo.username.length > 64) {
+        usernameError.classList.remove("hidden")
+        error = true
+    } else {
+        usernameError.classList.add("hidden")
+        error = false
+    }
 
+    if (userInfo.password1.length < 8 || userInfo.password1.length > 64) {
+        passwordError.classList.remove("hidden")
+        error = true
+    } else {
+        passwordError.classList.add("hidden")
+    }
+
+    if (userInfo.password1 !== userInfo.password2) {
+        matchError.classList.remove("hidden")
+        error = true
+    } else  {
+        matchError.classList.add("hidden")
+    }
+
+    let pattern = /^\S+@\S+\.\S+$/
+    if (!pattern.test(userInfo.email)) {
+        emailError.classList.remove("hidden")
+        error = true
+    } else {
+        emailError.classList.add("hidden")
+    }
+
+
+    if (!error) {
+        userList.push(userInfo)
+        console.log(userList)
+
+        if (userList.length > 0) {
+            empty.classList.add("hidden")
+        }
+
+        const userRecord = document.createElement("div")
+        userRecord.textContent = `${userInfo.username} - ${userInfo.email} - ${userInfo.date}`
+        users.appendChild(userRecord)
+    }
+})
